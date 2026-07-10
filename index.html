@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StitchGrid | Pre-Seed Investor Presentation</title>
+<meta name="description" content="StitchGrid pre-seed investor presentation.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta property="og:title" content="StitchGrid | Pre-Seed Investor Presentation">
+<meta property="og:description" content="StitchGrid pre-seed investor presentation.">
+<meta property="twitter:title" content="StitchGrid | Pre-Seed Investor Presentation">
+<meta property="twitter:description" content="StitchGrid pre-seed investor presentation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root{
+  --warm-white:#FAF8F5; --soft-stone:#E8E2D9; --bone:#F1ECE3;
+  --charcoal:#2D2D2D; --ink:#1B2A4A; --ink-hover:#15213C;
+  --terracotta:#C4613A; --terracotta-tint:#E08B5C; --olive:#5C7A54;
+  --amber:#C8842B; --crimson:#C03434; --border:#E6E0D5; --border-soft:#EFEAE0;
+  --muted-fg:#736B62;
+  --font-heading:"Playfair Display",Georgia,"Times New Roman",serif;
+  --font-sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0d1322;font-family:var(--font-sans);color:var(--charcoal);
+  -webkit-font-smoothing:antialiased;overflow:hidden;}
+
+.deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.stage{position:relative;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;
+  background:var(--warm-white);overflow:hidden;box-shadow:0 40px 120px -30px rgba(0,0,0,.6);}
+
+.slide{position:absolute;inset:0;padding:5.2% 6.5%;display:none;flex-direction:column;}
+.slide.active{display:flex;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── Type ── */
+.eyebrow{font-size:.78vw;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--terracotta);margin-bottom:1.4em;}
+h1{font-family:var(--font-heading);font-weight:700;letter-spacing:-.03em;line-height:1.04;
+  font-size:5.4vw;color:var(--charcoal);text-wrap:balance}
+h2{font-family:var(--font-heading);font-weight:600;letter-spacing:-.02em;line-height:1.08;
+  font-size:3.5vw;color:var(--charcoal);text-wrap:balance;margin-bottom:.55em}
+.lede{font-size:1.5vw;line-height:1.5;color:var(--muted-fg);max-width:46em;text-wrap:pretty}
+.dot{color:var(--terracotta)}
+.em{color:var(--terracotta)}
+
+/* ── Wordmark ── */
+.wordmark{font-family:var(--font-heading);font-weight:700;letter-spacing:-.01em}
+
+/* ── Footer chrome ── */
+.foot{position:absolute;left:6.5%;right:6.5%;bottom:4%;display:flex;justify-content:space-between;
+  align-items:center;font-size:.78vw;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-fg)}
+.foot .wm{font-family:var(--font-heading);font-weight:700;text-transform:none;letter-spacing:-.01em;
+  font-size:1.1vw;color:var(--charcoal)}
+
+/* ── Layout ── */
+.cols{display:grid;gap:2.4vw;margin-top:2.4vw}
+.cols-3{grid-template-columns:repeat(3,1fr)}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.8vw 1.7vw;
+  box-shadow:0 1px 2px rgba(27,42,74,.06);}
+.card .tagline{font-family:var(--font-mono);font-size:.92vw;font-weight:600;letter-spacing:.04em;
+  color:var(--terracotta);margin-bottom:.85em;display:block}
+.card p{font-size:1.05vw;line-height:1.45;color:var(--muted-fg)}
+.kicker{margin-top:auto;margin-bottom:2.8vw;font-size:1.35vw;line-height:1.45;color:var(--charcoal);
+  font-weight:500;text-wrap:pretty;max-width:46em}
+
+ul.points{list-style:none;margin-top:1.4vw;display:flex;flex-direction:column;gap:1.15vw;max-width:48em}
+ul.points li{position:relative;padding-left:1.7em;font-size:1.42vw;line-height:1.42;color:var(--charcoal);text-wrap:pretty}
+ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:.46em;height:.46em;border-radius:50%;background:var(--terracotta)}
+
+/* pipeline */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;margin-top:2.2vw}
+.step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5vw 1.4vw;display:flex;flex-direction:column;gap:.6vw}
+.step .n{font-family:var(--font-mono);font-size:1.05vw;color:var(--terracotta);font-weight:600}
+.step h3{font-family:var(--font-heading);font-weight:600;font-size:1.45vw;letter-spacing:-.01em}
+.step p{font-size:.98vw;line-height:1.42;color:var(--muted-fg)}
+
+/* horizontal flow diagram (product + moat) */
+.flow{display:flex;align-items:stretch;gap:.65vw;margin-top:2.6vw}
+.node{flex:1;background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.15vw .95vw;
+  display:flex;flex-direction:column;justify-content:center;gap:.5vw;min-height:8.6vw;
+  box-shadow:0 1px 2px rgba(27,42,74,.06)}
+.node .k{font-family:var(--font-mono);font-size:.7vw;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted-fg)}
+.node .t{font-family:var(--font-heading);font-size:1.12vw;font-weight:600;line-height:1.14;
+  letter-spacing:-.01em;color:var(--charcoal)}
+.node.hl{border-color:hsl(17 55% 50% / .55);box-shadow:0 2px 8px -2px rgba(196,97,58,.18)}
+.node.hl .k{color:var(--terracotta)}
+.arrow{display:flex;align-items:center;color:var(--terracotta);flex:0 0 auto}
+.arrow svg{width:1.15vw;height:1.15vw}
+
+/* phase roadmap rail */
+.rail{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1vw;margin-top:2.4vw}
+.phase{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.4vw 1.15vw;
+  display:flex;flex-direction:column;gap:.55vw}
+.phase .ph{font-family:var(--font-mono);font-size:.8vw;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--muted-fg)}
+.phase h3{font-family:var(--font-heading);font-size:1.2vw;font-weight:600;letter-spacing:-.01em;line-height:1.12}
+.phase p{font-size:.82vw;line-height:1.4;color:var(--muted-fg)}
+.phase.now{border-color:hsl(17 55% 50% / .55);box-shadow:0 2px 8px -2px rgba(196,97,58,.18)}
+.phase.now .ph{color:var(--terracotta)}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;margin-top:auto;margin-bottom:1vw}
+.metric .v{font-family:var(--font-mono);font-weight:600;font-size:3.3vw;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.metric .l{font-size:1vw;color:var(--muted-fg);margin-top:.6em;line-height:1.35;text-wrap:pretty}
+.metrics-4{grid-template-columns:repeat(4,1fr);margin-top:2.8vw;margin-bottom:0}
+.metrics-4 .v{font-size:2.9vw}
+
+/* ── Dark slides ── */
+.slide.dark{background:var(--ink);color:var(--warm-white)}
+.slide.dark h1,.slide.dark h2{color:var(--warm-white)}
+.slide.dark .lede{color:rgba(250,248,245,.74)}
+.slide.dark .eyebrow{color:var(--terracotta-tint)}
+.slide.dark .foot{color:rgba(250,248,245,.5)}
+.slide.dark .foot .wm{color:var(--warm-white)}
+.slide.dark .foot .wm .dot{color:var(--terracotta-tint)}
+.wordmark-big{font-family:var(--font-heading);font-weight:700;letter-spacing:-.02em;
+  font-size:2.6vw;color:var(--warm-white);margin-bottom:1.1em}
+.wordmark-big .dot{color:var(--terracotta-tint)}
+.slide.dark .startline{font-family:var(--font-sans);font-size:1.45vw;font-weight:600;
+  color:var(--terracotta-tint);margin-top:1vw;text-wrap:pretty;max-width:42em;line-height:1.4}
+.ask{display:flex;gap:3vw;margin-top:2.2vw}
+.ask .a .v{font-family:var(--font-mono);font-size:2.6vw;font-weight:600;color:var(--terracotta-tint);line-height:1}
+.ask .a .l{font-size:1vw;color:rgba(250,248,245,.72);margin-top:.6em;max-width:18em;line-height:1.4}
+.slide.dark .round-note{font-size:1.02vw;color:rgba(250,248,245,.62);margin-top:2.2vw;max-width:46em;line-height:1.5}
+.slide.dark .round-note b{color:var(--terracotta-tint);font-weight:600}
+
+/* ── Controls ── */
+.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;
+  z-index:50;background:rgba(13,19,34,.82);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.1)}
+.nav button{background:none;border:none;color:rgba(255,255,255,.85);cursor:pointer;font-size:18px;line-height:1;
+  padding:4px 8px;border-radius:8px;font-family:var(--font-sans)}
+.nav button:hover{background:rgba(255,255,255,.12);color:#fff}
+.nav .count{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);min-width:48px;text-align:center}
+.hint{position:fixed;bottom:20px;right:20px;z-index:50;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.download{position:fixed;top:20px;right:20px;z-index:50;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.download:hover{background:#fff}
+
+/* ── Print → PDF ── */
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{background:#fff;overflow:visible;height:auto;width:1280px}
+  .deck{position:static;display:block;height:auto;width:1280px}
+  .stage{position:static;width:1280px;height:auto;max-width:none;max-height:none;box-shadow:none;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1280px;height:720px;overflow:hidden;
+    animation:none;page-break-after:always;break-after:page;}
+  .slide:last-of-type{page-break-after:auto;break-after:auto}
+  .nav,.hint,.download{display:none !important}
+}
+</style>
+</head>
+<body>
+<a class="download" href="./StitchGrid-Pre-Seed-Investor-Presentation.pdf" download>Download PDF</a>
+<div class="deck">
+  <div class="stage">
+
+    <!-- 1 ─ TITLE -->
+    <section class="slide dark active">
+      <div class="eyebrow">Pre-seed · agentic AI for production</div>
+      <div class="wordmark-big">stitchgrid<span class="dot">.</span></div>
+      <h1>The AI production<br>office for brands.</h1>
+      <div class="startline">We start with apparel sourcing, then run the entire order as your outsourced back office.</div>
+      <div class="lede" style="margin-top:1.2vw">Think of us as your production team, run by an agent. Send a photo, a description, or a sample. We turn it into a tech pack, source vetted factories, run sampling and fitting, and bring back one comparable quote at true landed cost. A signed PO in days, not nine months.</div>
+      <div class="foot"><span>Avi Sachdev · founder · avi@stitchgrid.com</span><span>New York · 2026</span></div>
+    </section>
+
+    <!-- 2 ─ PROBLEM -->
+    <section class="slide">
+      <div class="eyebrow">The problem</div>
+      <h2>Sourcing still runs on<br>brokers, Excel, and email.</h2>
+      <ul class="points">
+        <li>A brand that wants to make 2,000 hoodies spends 6 to 9 months finding, vetting, and negotiating with factories.</li>
+        <li>The work is done by sourcing agents and brokers. It is manual, opaque, and buries a 10 to 20% margin inside the quote.</li>
+        <li>Factories price the goods, not the journey. Freight, duties, and tariffs are an afterthought to them, but landed cost is the one number a brand can actually plan around.</li>
+      </ul>
+      <div class="kicker">It is <span class="em">labor, not software</span>. Reading a messy brief, matching it to capable factories, and reconciling inconsistent quotes is exactly the language work AI is now good at.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The problem</span></div>
+    </section>
+
+    <!-- 3 ─ STATUS QUO -->
+    <section class="slide">
+      <div class="eyebrow">The status quo</div>
+      <h2>Three outdated ways to find a supplier today.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">01 · Back-channel agents</div><p>Who you know. Relationship-based middlemen who take 10 to 20% and answer to no one. No transparency, and it all dies if your contact does.</p></div>
+        <div class="card"><div class="tagline">02 · Alibaba</div><p>A directory, not a workflow. Mostly Chinese factories, no real reviews, no milestone pricing, no help with samples, freight, payment, or QC.</p></div>
+        <div class="card"><div class="tagline">03 · Trade shows</div><p>Inconsistent and expensive. A flight, a booth fee, and a few days a year to maybe meet the right factory, then back to email and hope.</p></div>
+      </div>
+      <div class="kicker">And not one of them helps <span class="em">after the handshake</span>. Samples, fittings, tech-pack revisions, freight, payment, QC: you are on your own.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The status quo</span></div>
+    </section>
+
+    <!-- 4 ─ WHY ME -->
+    <section class="slide">
+      <div class="eyebrow">Why me</div>
+      <h2>I have lived all three<br>of those broken channels.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">Born into it</div><p>My family runs a garment manufacturing business. It is the reason we came to America in the 1980s. I grew up around factories, fabric, and production.</p></div>
+        <div class="card"><div class="tagline">Built the software</div><p>Five years on the engineering team at Rent the Runway, building at the intersection of fashion, logistics, and operations at real scale.</p></div>
+        <div class="card"><div class="tagline">Felt the pain</div><p>I started my own DTC brand and lived the sourcing grind: constant travel to find, vet, and chase factories, with no tooling to lean on.</p></div>
+      </div>
+      <div class="kicker">I grew up <span class="em">inside the factory</span>, and I have been the brand <span class="em">chasing one across the world</span>. And not building alone: three sourcing agents already run supply across five countries, and an engineer is helping build the product.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Founder</span></div>
+    </section>
+
+    <!-- 5 ─ WHY NOW -->
+    <section class="slide">
+      <div class="eyebrow">Why now</div>
+      <h2>The broker's whole job is language work.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">Read the brief</div><p>Founders describe what they want in plain words and a photo. An agent turns it into a real, factory-ready tech pack.</p></div>
+        <div class="card"><div class="tagline">Match the factory</div><p>Capability, capacity, MOQ, certifications, lead time. A ranking problem over structured factory data.</p></div>
+        <div class="card"><div class="tagline">Reconcile the quotes</div><p>Messy PDFs in, one normalized comparison out, with out-of-band pricing flagged automatically.</p></div>
+      </div>
+      <div class="kicker">And the demand just arrived: tariffs and supply shocks have brands urgently moving production out of China, with no one to hold their hand through it.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Why now</span></div>
+    </section>
+
+    <!-- 6 ─ SOLUTION -->
+    <section class="slide">
+      <div class="eyebrow">How it works · live today</div>
+      <h2>A hoodie photo in.<br>A signed PO out.</h2>
+      <div class="flow">
+        <div class="node"><span class="k">01 · Input</span><span class="t">Photo, sketch, or sample</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node hl"><span class="k">02 · AI</span><span class="t">Tech pack</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node"><span class="k">03 · Match</span><span class="t">Vetted factories</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node hl"><span class="k">04 · AI</span><span class="t">Quote at landed cost</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node"><span class="k">05 · Order</span><span class="t">Signed PO</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node"><span class="k">06 · Deliver</span><span class="t">Production to shipment</span></div>
+      </div>
+      <div class="kicker">A brand sends us a hoodie photo. The agent writes the tech pack, sources vetted factories we have visited in person, and returns comparable quotes at true landed cost. Days later, the PO is in production. <span class="em">The agent does the work a sourcing team would</span>, which is why this scales as software, not headcount.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>How it works · demo available</span></div>
+    </section>
+
+    <!-- 7 ─ MARKET -->
+    <section class="slide">
+      <div class="eyebrow">Market</div>
+      <h2>$1.8T of apparel.<br>A broker tax on every unit.</h2>
+      <div class="lede">We don't need the whole market. We need the emerging brands diversifying production right now, and a cut of every PO they place.</div>
+      <div class="metrics">
+        <div class="metric"><div class="v">$1.8T</div><div class="l">Global apparel market, sourced through human intermediaries today.</div></div>
+        <div class="metric"><div class="v">$200K</div><div class="l">Average annual production spend per emerging brand in our network.</div></div>
+        <div class="metric"><div class="v">$14M</div><div class="l">Illustrative revenue at 1,000 brands and a 7% take rate.</div></div>
+      </div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Market · apparel is the wedge</span></div>
+    </section>
+
+    <!-- 8 ─ WHERE WE ARE -->
+    <section class="slide">
+      <div class="eyebrow">Where we are · Phase 0</div>
+      <h2>Early, but the signal is real.</h2>
+      <div class="metrics metrics-4">
+        <div class="metric"><div class="v">24–48h</div><div class="l">Brief to first quote. The old way takes weeks of back-and-forth.</div></div>
+        <div class="metric"><div class="v">$100K+</div><div class="l">Our launch partner's first order, worth $100K to $150K.</div></div>
+        <div class="metric"><div class="v">10</div><div class="l">Factories vetted and onboarded to the network.</div></div>
+        <div class="metric"><div class="v">3</div><div class="l">Sourcing agents running supply across five countries.</div></div>
+      </div>
+      <div class="kicker">Our launch partner already wants to move <span class="em">more of its catalog onto StitchGrid</span> once this first order delivers: expansion pull before we have even shipped. One brand live, two to three more waiting for access, high-touch by design while we learn what to automate.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Traction</span></div>
+    </section>
+
+    <!-- 9 ─ ROADMAP -->
+    <section class="slide">
+      <div class="eyebrow">The roadmap</div>
+      <h2>Land the order. Own the back office.<br>Then move the money.</h2>
+      <div class="rail">
+        <div class="phase now"><div class="ph">Phase 0 · now</div><h3>Sourcing + brokerage</h3><p>Real POs through the system, run high-touch. Prove brands transact, not just browse.</p></div>
+        <div class="phase"><div class="ph">Phase 1</div><h3>Back-office OS</h3><p>Production runs inside StitchGrid. Cutout risk drops and the workflow gets sticky.</p></div>
+        <div class="phase"><div class="ph">Phase 2</div><h3>Payments</h3><p>Orchestrate milestone-linked money movement. Monetize GMV as take rate compresses.</p></div>
+        <div class="phase"><div class="ph">Phase 3</div><h3>Financing</h3><p>Turn workflow data into underwriting. Deposit financing and net terms for repeat brands.</p></div>
+        <div class="phase"><div class="ph">Phase 4</div><h3>Attaches</h3><p>QC, compliance, landed cost, supplier scorecards. More revenue per order, deeper moat.</p></div>
+      </div>
+      <div class="kicker">One transaction, monetized more deeply each phase: <span class="em">a 5 to 10% take rate today, payment spread and financing margin next, attach revenue throughout</span>. The sourcing agent is the wedge; the OS, payments, and financing are the company.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The roadmap</span></div>
+    </section>
+
+    <!-- 10 ─ MOAT -->
+    <section class="slide">
+      <div class="eyebrow">Why this compounds</div>
+      <h2>Every order makes<br>the next one smarter.</h2>
+      <div class="flow">
+        <div class="node"><span class="k">The data · live</span><span class="t">Supplier scorecards: comms, delivery, quality, landed cost</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node hl"><span class="k">The engine</span><span class="t">Sharper matching, pricing, and delivery-reliability scores</span></div>
+        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+        <div class="node"><span class="k">The result</span><span class="t">Better outcomes, more brands, more orders</span></div>
+      </div>
+      <div class="kicker">A scorecard on every supplier <span class="em">already runs in the product</span>: who communicates, who ships on time, whether goods arrive as expected, at what real landed cost. That proprietary record is something a horizontal AI agent cannot recreate, and it deepens with every PO.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Defensibility</span></div>
+    </section>
+
+    <!-- 11 ─ WHY BRANDS STAY -->
+    <section class="slide">
+      <div class="eyebrow">Why brands stay</div>
+      <h2>The first order is a service.<br>Every order after is software.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">System of record</div><p>Once tech packs, POs, samples, QC, and milestones live in StitchGrid, going direct means losing the system that runs production.</p></div>
+        <div class="card"><div class="tagline">Data they can't rebuild</div><p>We know each factory's real landed cost and on-time record. A brand can't recreate that by texting a factory directly.</p></div>
+        <div class="card"><div class="tagline">The money rail</div><p>As payments and financing run through us, we become the rail the order settles on, not a one-time introduction.</p></div>
+      </div>
+      <div class="kicker">We earn the first order high-touch, by hand. Then the agent absorbs each repeat step, so orders per person rise and gross margin expands with volume. <span class="em">Operating leverage as we scale</span> is the proof point we are building toward next.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Retention · anti-cutout</span></div>
+    </section>
+
+    <!-- 12 ─ ASK / CLOSE -->
+    <section class="slide dark">
+      <div class="eyebrow">The ask</div>
+      <h1>Back the agent that<br>deletes the broker.</h1>
+      <div class="lede" style="margin-top:1.3vw">Apparel sourcing is the wedge. The production operating system for brands is the company. Native AI against a trillion-dollar supply chain that still runs on phone calls, with the platform shipped and the pilot live.</div>
+      <div class="ask">
+        <div class="a"><div class="v">$500K</div><div class="l">Pre-seed to convert a founding engineer, hire GTM, and complete our first cohort of POs.</div></div>
+        <div class="a"><div class="v">10 POs</div><div class="l">The milestone that turns the pilot into a business and earns the seed round.</div></div>
+        <div class="a"><div class="v">Platform</div><div class="l">From sourcing today to the back-office OS, payments, and financing that compound on every order.</div></div>
+      </div>
+      <div class="round-note"><b>Founder-owned, clean cap table, minimal burn.</b> A disciplined round where a lead check buys meaningful ownership. Valuation to discuss.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Avi Sachdev · avi@stitchgrid.com</span></div>
+    </section>
+
+  </div>
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Previous">‹</button>
+  <span class="count"><span id="cur">1</span> / <span id="total">9</span></span>
+  <button id="next" aria-label="Next">›</button>
+</div>
+<div class="hint">← → to navigate · F fullscreen · P print to PDF</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+const cur=document.getElementById('cur'),total=document.getElementById('total');
+total.textContent=slides.length;
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  cur.textContent=i+1;
+}
+document.getElementById('next').onclick=(e)=>{e.stopPropagation();show(i+1)};
+document.getElementById('prev').onclick=(e)=>{e.stopPropagation();show(i-1)};
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')show(i+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
+  if(e.key==='Home')show(0);
+  if(e.key==='End')show(slides.length-1);
+  if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+  if(e.key.toLowerCase()==='p'){window.print();}
+});
+document.querySelector('.stage').addEventListener('click',e=>{
+  const x=e.clientX/window.innerWidth;
+  if(x>0.5)show(i+1);else show(i-1);
+});
+</script>
+</body>
+</html>
