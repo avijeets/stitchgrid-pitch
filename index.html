@@ -66,17 +66,49 @@ h2{font-family:var(--font-heading);font-weight:600;letter-spacing:-.02em;line-he
 /* ── Layout ── */
 .cols{display:grid;gap:2.4vw;margin-top:2.4vw}
 .cols-3{grid-template-columns:repeat(3,1fr)}
+.cols-2{grid-template-columns:repeat(2,1fr)}
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.8vw 1.7vw;
   box-shadow:0 1px 2px rgba(27,42,74,.06);}
 .card .tagline{font-family:var(--font-mono);font-size:.92vw;font-weight:600;letter-spacing:.04em;
   color:var(--terracotta);margin-bottom:.85em;display:block}
+.card .sub{font-family:var(--font-heading);font-weight:600;font-size:1.28vw;letter-spacing:-.01em;
+  line-height:1.1;color:var(--charcoal);display:block;margin-bottom:.55em}
+.card .bignum{font-family:var(--font-mono);font-weight:600;font-size:1.9vw;letter-spacing:-.02em;
+  color:var(--ink);line-height:1;margin-bottom:.6em}
+.card .bignum .unit{font-size:.88vw;color:var(--muted-fg);font-weight:500;letter-spacing:0}
 .card p{font-size:1.05vw;line-height:1.45;color:var(--muted-fg)}
+.card ul.mini{list-style:none;margin-top:.4em;display:flex;flex-direction:column;gap:.55em}
+.card ul.mini li{position:relative;padding-left:1.15em;font-size:.98vw;line-height:1.35;color:var(--muted-fg)}
+.card ul.mini li::before{content:"";position:absolute;left:0;top:.52em;width:.34em;height:.34em;
+  border-radius:50%;background:var(--terracotta)}
 .kicker{margin-top:auto;margin-bottom:2.8vw;font-size:1.35vw;line-height:1.45;color:var(--charcoal);
-  font-weight:500;text-wrap:pretty;max-width:46em}
+  font-weight:500;text-wrap:pretty;max-width:48em}
+.kicker .lbl{display:block;font-family:var(--font-mono);font-size:.74vw;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.55em}
 
 ul.points{list-style:none;margin-top:1.4vw;display:flex;flex-direction:column;gap:1.15vw;max-width:48em}
 ul.points li{position:relative;padding-left:1.7em;font-size:1.42vw;line-height:1.42;color:var(--charcoal);text-wrap:pretty}
 ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:.46em;height:.46em;border-radius:50%;background:var(--terracotta)}
+
+/* founder facts row */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vw;margin-top:2vw}
+.facts .k{font-family:var(--font-mono);font-size:.72vw;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--terracotta);margin-bottom:.55em}
+.facts .v{font-size:.98vw;line-height:1.4;color:var(--muted-fg);text-wrap:pretty}
+
+/* standalone mono label + note */
+.mlabel{font-family:var(--font-mono);font-size:.74vw;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--terracotta);margin-bottom:.4em}
+.note{font-size:.82vw;line-height:1.4;color:var(--muted-fg);margin-top:1.5vw;max-width:56em}
+
+/* revenue calc strip */
+.calc{display:flex;align-items:flex-end;gap:1vw;margin-top:.6vw;flex-wrap:wrap}
+.calc .op{font-family:var(--font-mono);font-size:1.5vw;color:var(--terracotta);font-weight:600;line-height:1.35}
+.calc .term{display:flex;flex-direction:column;gap:.5em}
+.calc .term .v{font-family:var(--font-mono);font-size:1.7vw;font-weight:600;color:var(--ink);
+  line-height:1;letter-spacing:-.02em}
+.calc .term .l{font-size:.68vw;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-fg)}
+.calc .term.res .v{color:var(--terracotta)}
 
 /* pipeline */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.6vw;margin-top:2.2vw}
@@ -179,59 +211,63 @@ ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:.46em;h
     <!-- 2 ─ PROBLEM -->
     <section class="slide">
       <div class="eyebrow">The problem</div>
-      <h2>Sourcing still runs on<br>brokers, Excel, and email.</h2>
-      <ul class="points">
-        <li>A brand that wants to make 2,000 hoodies spends 6 to 9 months finding, vetting, and negotiating with factories.</li>
-        <li>The work is done by sourcing agents and brokers. It is manual, opaque, and buries a 10 to 20% margin inside the quote.</li>
-        <li>Factories price the goods, not the journey. Freight, duties, and tariffs are an afterthought to them, but landed cost is the one number a brand can actually plan around.</li>
-      </ul>
-      <div class="kicker">It is <span class="em">labor, not software</span>. Reading a messy brief, matching it to capable factories, and reconciling inconsistent quotes is exactly the language work AI is now good at.</div>
+      <h2>Emerging brands lose months<br>before production even starts.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">01 · Find the factory</div><p>A 2,000-unit order can take 6 to 9 months to source, vet, negotiate, and move into production.</p></div>
+        <div class="card"><div class="tagline">02 · Decode the quote</div><p>Brokers hide 10 to 20% inside the quote. Factories price the goods, while freight, duties, and tariffs arrive later.</p></div>
+        <div class="card"><div class="tagline">03 · Run the order</div><p>Samples, approvals, PO changes, QC, and shipment updates live across email, spreadsheets, and chat.</p></div>
+      </div>
+      <div class="kicker">The market does not need another directory. It needs the <span class="em">production work to get done</span>.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The problem</span></div>
     </section>
 
     <!-- 3 ─ STATUS QUO -->
     <section class="slide">
       <div class="eyebrow">The status quo</div>
-      <h2>Three outdated ways to find a supplier today.</h2>
+      <h2>Every option stops at the introduction.</h2>
       <div class="cols cols-3">
-        <div class="card"><div class="tagline">01 · Back-channel agents</div><p>Who you know. Relationship-based middlemen who take 10 to 20% and answer to no one. No transparency, and it all dies if your contact does.</p></div>
-        <div class="card"><div class="tagline">02 · Alibaba</div><p>A directory, not a workflow. Mostly Chinese factories, no real reviews, no milestone pricing, no help with samples, freight, payment, or QC.</p></div>
-        <div class="card"><div class="tagline">03 · Trade shows</div><p>Inconsistent and expensive. A flight, a booth fee, and a few days a year to maybe meet the right factory, then back to email and hope.</p></div>
+        <div class="card"><div class="tagline">01 · Back-channel agents</div><span class="sub">Who you know</span><p>Relationship-based middlemen take 10 to 20% with no transparent workflow or durable record.</p></div>
+        <div class="card"><div class="tagline">02 · Alibaba</div><span class="sub">A directory</span><p>Search results do not run samples, compare landed cost, monitor QC, or follow the order to shipment.</p></div>
+        <div class="card"><div class="tagline">03 · Trade shows</div><span class="sub">A moment in time</span><p>Flights, booth fees, and a few days to meet suppliers. Then the work moves back to email and hope.</p></div>
       </div>
-      <div class="kicker">And not one of them helps <span class="em">after the handshake</span>. Samples, fittings, tech-pack revisions, freight, payment, QC: you are on your own.</div>
+      <div class="kicker">None of them owns the work <span class="em">after the handshake</span>. The transaction is the wedge; the workflow after it is the company.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The status quo</span></div>
     </section>
 
-    <!-- 4 ─ WHY ME -->
+    <!-- 4 ─ FOUNDER -->
     <section class="slide">
-      <div class="eyebrow">Why me</div>
-      <h2>I have lived all three<br>of those broken channels.</h2>
+      <div class="eyebrow">Founder</div>
+      <h2>I have lived all three<br>sides of this problem.</h2>
       <div class="cols cols-3">
-        <div class="card"><div class="tagline">Born into it</div><p>My family runs a garment manufacturing business. It is the reason we came to America in the 1980s. I grew up around factories, fabric, and production.</p></div>
-        <div class="card"><div class="tagline">Built the software</div><p>Five years on the engineering team at Rent the Runway, building at the intersection of fashion, logistics, and operations at real scale.</p></div>
-        <div class="card"><div class="tagline">Felt the pain</div><p>I started my own DTC brand and lived the sourcing grind: constant travel to find, vet, and chase factories, with no tooling to lean on.</p></div>
+        <div class="card"><div class="tagline">Born into it</div><p>My family runs a garment manufacturing business — the reason we came to America in the 1980s. I grew up in this world and still hold relationships that move product into major retailers.</p></div>
+        <div class="card"><div class="tagline">Built the software</div><p>Five years at Rent the Runway building at the intersection of fashion, logistics, and operations at scale, plus time inside a two-sided marketplace at Momento Market.</p></div>
+        <div class="card"><div class="tagline">Became the customer</div><p>I founded Both Tails, my own apparel brand, and lived the sourcing grind firsthand — taking it to market across every major channel. I'm building the tool I needed.</p></div>
       </div>
-      <div class="kicker">I grew up <span class="em">inside the factory</span>, and I have been the brand <span class="em">chasing one across the world</span>. And not building alone: three sourcing agents already run supply across five countries, and an engineer is helping build the product.</div>
+      <div class="facts">
+        <div><div class="k">Family business supplies</div><div class="v">TJ Maxx · Macy's · Nordstrom · Ross · Burlington</div></div>
+        <div><div class="k">Career</div><div class="v">Rent the Runway · Momento Market</div></div>
+        <div><div class="k">Both Tails sells through</div><div class="v">Amazon · Walmart · Chewy · Kohl's · TikTok Shop · Shopify</div></div>
+      </div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Founder</span></div>
     </section>
 
     <!-- 5 ─ WHY NOW -->
     <section class="slide">
       <div class="eyebrow">Why now</div>
-      <h2>The broker's whole job is language work.</h2>
+      <h2>AI can finally do the work brokers<br>charge 10 to 20% to perform.</h2>
       <div class="cols cols-3">
-        <div class="card"><div class="tagline">Read the brief</div><p>Founders describe what they want in plain words and a photo. An agent turns it into a real, factory-ready tech pack.</p></div>
-        <div class="card"><div class="tagline">Match the factory</div><p>Capability, capacity, MOQ, certifications, lead time. A ranking problem over structured factory data.</p></div>
-        <div class="card"><div class="tagline">Reconcile the quotes</div><p>Messy PDFs in, one normalized comparison out, with out-of-band pricing flagged automatically.</p></div>
+        <div class="card"><div class="tagline">01 · Read</div><span class="sub">Turn the brief into a spec</span><p>Interpret photos, descriptions, measurements, and prior samples. Produce a factory-ready tech pack.</p></div>
+        <div class="card"><div class="tagline">02 · Decide</div><span class="sub">Rank the right factory</span><p>Compare capability, MOQ, lead time, certifications, capacity, and past delivery behavior.</p></div>
+        <div class="card"><div class="tagline">03 · Run</div><span class="sub">Keep the order moving</span><p>Read replies, normalize quotes, chase approvals, flag risk, and update every connected system.</p></div>
       </div>
-      <div class="kicker">And the demand just arrived: tariffs and supply shocks have brands urgently moving production out of China, with no one to hold their hand through it.</div>
+      <div class="kicker"><span class="lbl">Software leverage</span>A traditional sourcing office grows by adding coordinators. StitchGrid automates the language-heavy work so <span class="em">GMV grows faster than headcount</span>.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Why now</span></div>
     </section>
 
-    <!-- 6 ─ SOLUTION -->
+    <!-- 6 ─ HOW IT WORKS -->
     <section class="slide">
       <div class="eyebrow">How it works · live today</div>
-      <h2>A hoodie photo in.<br>A signed PO out.</h2>
+      <h2>A photo in.<br>A signed PO out.</h2>
       <div class="flow">
         <div class="node"><span class="k">01 · Input</span><span class="t">Photo, sketch, or sample</span></div>
         <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
@@ -241,95 +277,103 @@ ul.points li::before{content:"";position:absolute;left:0;top:.62em;width:.46em;h
         <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
         <div class="node hl"><span class="k">04 · AI</span><span class="t">Quote at landed cost</span></div>
         <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
-        <div class="node"><span class="k">05 · Order</span><span class="t">Signed PO</span></div>
+        <div class="node"><span class="k">05 · Approve</span><span class="t">Signed PO</span></div>
         <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
         <div class="node"><span class="k">06 · Deliver</span><span class="t">Production to shipment</span></div>
       </div>
-      <div class="kicker">A brand sends us a hoodie photo. The agent writes the tech pack, sources vetted factories we have visited in person, and returns comparable quotes at true landed cost. Days later, the PO is in production. <span class="em">The agent does the work a sourcing team would</span>, which is why this scales as software, not headcount.</div>
+      <div class="kicker">A brand sends a product idea. StitchGrid writes the tech pack, sources factories we have <span class="em">vetted in person</span>, and returns comparable quotes at true landed cost. The brand approves the factory and price; the same agent follows the order from signed PO through shipment. AI does the language work — the brand keeps every decision.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>How it works · demo available</span></div>
     </section>
 
-    <!-- 7 ─ MARKET -->
+    <!-- 7 ─ REVENUE CEILING -->
     <section class="slide">
-      <div class="eyebrow">Market</div>
-      <h2>$1.8T of apparel.<br>A broker tax on every unit.</h2>
-      <div class="lede">We don't need the whole market. We need the emerging brands diversifying production right now, and a cut of every PO they place.</div>
-      <div class="metrics">
-        <div class="metric"><div class="v">$1.8T</div><div class="l">Global apparel market, sourced through human intermediaries today.</div></div>
-        <div class="metric"><div class="v">$200K</div><div class="l">Average annual production spend per emerging brand in our network.</div></div>
-        <div class="metric"><div class="v">$14M</div><div class="l">Illustrative revenue at 1,000 brands and a 7% take rate.</div></div>
+      <div class="eyebrow">Revenue ceiling</div>
+      <h2>Software creates the floor.<br>Production creates the upside.</h2>
+      <div class="lede">A brand can bring its own suppliers, or ask StitchGrid to source the order.</div>
+      <div class="cols cols-2" style="margin-top:1.8vw">
+        <div class="card"><div class="tagline">Apparel OS · subscription</div><div class="bignum">$149–$2,499<span class="unit"> / month</span></div><p>For brands running production with their existing supplier network.</p></div>
+        <div class="card"><div class="tagline">Managed sourcing · take rate</div><div class="bignum">5–10%<span class="unit"> / order</span></div><p>Source the order end to end at a take rate on the production GMV that runs through StitchGrid.</p></div>
       </div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Market · apparel is the wedge</span></div>
+      <div class="mlabel" style="margin-top:1.9vw">One illustrative managed order · 5% pilot take</div>
+      <div class="calc">
+        <div class="term"><span class="v">5</span><span class="l">Styles</span></div>
+        <span class="op">×</span>
+        <div class="term"><span class="v">10K</span><span class="l">Units each</span></div>
+        <span class="op">×</span>
+        <div class="term"><span class="v">$10</span><span class="l">Per unit</span></div>
+        <span class="op">=</span>
+        <div class="term"><span class="v">$500K</span><span class="l">Sourced GMV</span></div>
+        <span class="op">→</span>
+        <div class="term res"><span class="v">$25K</span><span class="l">At a 5% take</span></div>
+      </div>
+      <div class="note">5% introductory pilot rate; standard managed sourcing is expected to price at 7% to 10%. Illustrative production order based on company assumptions.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Revenue ceiling</span></div>
     </section>
 
-    <!-- 8 ─ WHERE WE ARE -->
+    <!-- 8 ─ BUSINESS MODEL -->
+    <section class="slide">
+      <div class="eyebrow">Business model · recurring + transactional</div>
+      <h2>The first order generates revenue.<br>Every order after increases LTV.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">01 · Recurring floor</div><div class="bignum">$149–$2,499<span class="unit"> / mo</span></div><p>Tech packs, approvals, POs, production status, and connected work.</p></div>
+        <div class="card"><div class="tagline">02 · Transaction upside</div><div class="bignum">5–10%<span class="unit"> / order</span></div><p>Revenue scales with the production GMV sourced and managed through StitchGrid.</p></div>
+        <div class="card"><div class="tagline">03 · LTV expansion</div><div class="bignum" style="font-size:1.55vw">Catalog, not one SKU</div><p>Land one urgent order, then expand across more styles, suppliers, and production cycles.</p></div>
+      </div>
+      <div class="kicker"><span class="lbl">What this round proves</span>SaaS attach, a second PO, and expansion beyond the pilot SKU. <span class="em">Pricing is informed by founder operating experience and early customer discovery</span>, not contracted revenue.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Business model · LTV</span></div>
+    </section>
+
+    <!-- 9 ─ GO TO MARKET -->
+    <section class="slide">
+      <div class="eyebrow">Go to market</div>
+      <h2>Land one urgent SKU.<br>Expand across the catalog.</h2>
+      <div class="cols cols-3">
+        <div class="card"><div class="tagline">01 · Find demand</div><span class="sub">Active POs</span><ul class="mini"><li>Founder and family network</li><li>Sourcing agents in-market</li><li>DTC and Shopify partners</li></ul></div>
+        <div class="card"><div class="tagline">02 · Complete the order</div><span class="sub">Prove trust</span><ul class="mini"><li>Vetted factory match</li><li>Comparable landed cost</li><li>One successful SKU</li></ul></div>
+        <div class="card"><div class="tagline">03 · Grow GMV</div><span class="sub">Expand both sides</span><ul class="mini"><li>More styles per brand</li><li>More repeat production</li><li>More proven factories</li></ul></div>
+      </div>
+      <div class="kicker"><span class="lbl">The marketplace compounds</span>More brand demand attracts better factories; more proven factories improve outcomes; better outcomes move <span class="em">more of each catalog onto StitchGrid</span>. Founder-led acquisition first — CAC is measured after the first paid cohort.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>GTM · GMV flywheel</span></div>
+    </section>
+
+    <!-- 10 ─ TRACTION -->
     <section class="slide">
       <div class="eyebrow">Where we are · Phase 0</div>
       <h2>Early, but the signal is real.</h2>
       <div class="metrics metrics-4">
-        <div class="metric"><div class="v">24–48h</div><div class="l">Brief to first quote. The old way takes weeks of back-and-forth.</div></div>
-        <div class="metric"><div class="v">$100K+</div><div class="l">Our launch partner's first order, worth $100K to $150K.</div></div>
+        <div class="metric"><div class="v">24–48h</div><div class="l">Brief to first quote. The old process takes weeks of back-and-forth.</div></div>
+        <div class="metric"><div class="v">$100K+</div><div class="l">Estimated value of the proposed pilot production order.</div></div>
         <div class="metric"><div class="v">10</div><div class="l">Factories vetted and onboarded to the network.</div></div>
-        <div class="metric"><div class="v">3</div><div class="l">Sourcing agents running supply across five countries.</div></div>
+        <div class="metric"><div class="v">3</div><div class="l">Sourcing agents across five countries.</div></div>
       </div>
-      <div class="kicker">Our launch partner already wants to move <span class="em">more of its catalog onto StitchGrid</span> once this first order delivers: expansion pull before we have even shipped. One brand live, two to three more waiting for access, high-touch by design while we learn what to automate.</div>
+      <div class="kicker"><span class="lbl">One SKU · one pilot</span>The current pilot scope is one SKU, with early conversations pointing to <span class="em">catalog expansion after the first order delivers</span>. Two to three additional brands are in early conversations — signals, not paid or contracted commitments.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Traction</span></div>
-    </section>
-
-    <!-- 9 ─ ROADMAP -->
-    <section class="slide">
-      <div class="eyebrow">The roadmap</div>
-      <h2>Land the order. Own the back office.<br>Then move the money.</h2>
-      <div class="rail">
-        <div class="phase now"><div class="ph">Phase 0 · now</div><h3>Sourcing + brokerage</h3><p>Real POs through the system, run high-touch. Prove brands transact, not just browse.</p></div>
-        <div class="phase"><div class="ph">Phase 1</div><h3>Back-office OS</h3><p>Production runs inside StitchGrid. Cutout risk drops and the workflow gets sticky.</p></div>
-        <div class="phase"><div class="ph">Phase 2</div><h3>Payments</h3><p>Orchestrate milestone-linked money movement. Monetize GMV as take rate compresses.</p></div>
-        <div class="phase"><div class="ph">Phase 3</div><h3>Financing</h3><p>Turn workflow data into underwriting. Deposit financing and net terms for repeat brands.</p></div>
-        <div class="phase"><div class="ph">Phase 4</div><h3>Attaches</h3><p>QC, compliance, landed cost, supplier scorecards. More revenue per order, deeper moat.</p></div>
-      </div>
-      <div class="kicker">One transaction, monetized more deeply each phase: <span class="em">a 5 to 10% take rate today, payment spread and financing margin next, attach revenue throughout</span>. The sourcing agent is the wedge; the OS, payments, and financing are the company.</div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The roadmap</span></div>
-    </section>
-
-    <!-- 10 ─ MOAT -->
-    <section class="slide">
-      <div class="eyebrow">Why this compounds</div>
-      <h2>Every order makes<br>the next one smarter.</h2>
-      <div class="flow">
-        <div class="node"><span class="k">The data · live</span><span class="t">Supplier scorecards: comms, delivery, quality, landed cost</span></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
-        <div class="node hl"><span class="k">The engine</span><span class="t">Sharper matching, pricing, and delivery-reliability scores</span></div>
-        <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
-        <div class="node"><span class="k">The result</span><span class="t">Better outcomes, more brands, more orders</span></div>
-      </div>
-      <div class="kicker">A scorecard on every supplier <span class="em">already runs in the product</span>: who communicates, who ships on time, whether goods arrive as expected, at what real landed cost. That proprietary record is something a horizontal AI agent cannot recreate, and it deepens with every PO.</div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Defensibility</span></div>
     </section>
 
     <!-- 11 ─ WHY BRANDS STAY -->
     <section class="slide">
       <div class="eyebrow">Why brands stay</div>
-      <h2>The first order is a service.<br>Every order after is software.</h2>
+      <h2>The marketplace earns the first PO.<br>The OS earns the next ten.</h2>
       <div class="cols cols-3">
-        <div class="card"><div class="tagline">System of record</div><p>Once tech packs, POs, samples, QC, and milestones live in StitchGrid, going direct means losing the system that runs production.</p></div>
-        <div class="card"><div class="tagline">Data they can't rebuild</div><p>We know each factory's real landed cost and on-time record. A brand can't recreate that by texting a factory directly.</p></div>
-        <div class="card"><div class="tagline">The money rail</div><p>As payments and financing run through us, we become the rail the order settles on, not a one-time introduction.</p></div>
+        <div class="card"><div class="tagline">System of record</div><p>Tech packs, sampling rounds, normalized quotes, approvals, POs, QC evidence, and delivery status stay together.</p></div>
+        <div class="card"><div class="tagline">Supplier graph</div><p>Cost, response time, sample accuracy, quality, exceptions, and delivery behavior improve every future match.</p></div>
+        <div class="card"><div class="tagline">Platform retention</div><p>Freight, storage, payments, and future financing attach to the same order without fragmenting the workflow.</p></div>
       </div>
-      <div class="kicker">We earn the first order high-touch, by hand. Then the agent absorbs each repeat step, so orders per person rise and gross margin expands with volume. <span class="em">Operating leverage as we scale</span> is the proof point we are building toward next.</div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Retention · anti-cutout</span></div>
+      <div class="kicker"><span class="lbl">The compounding loop</span>Brands can always contact a factory directly. They stay for the <span class="em">operating record, supplier intelligence, workflow automation, and attached services</span>.</div>
+      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Retention · data moat</span></div>
     </section>
 
     <!-- 12 ─ ASK / CLOSE -->
     <section class="slide dark">
       <div class="eyebrow">The ask</div>
-      <h1>Back the agent that<br>deletes the broker.</h1>
-      <div class="lede" style="margin-top:1.3vw">Apparel sourcing is the wedge. The production operating system for brands is the company. Native AI against a trillion-dollar supply chain that still runs on phone calls, with the platform shipped and the pilot live.</div>
+      <h1>Back the operating system<br>behind every emerging brand.</h1>
+      <div class="lede" style="margin-top:1.3vw">StitchGrid wins the first PO through the sourcing marketplace, then earns recurring revenue by running production from brief to shipment.</div>
       <div class="ask">
-        <div class="a"><div class="v">$500K</div><div class="l">Pre-seed to convert a founding engineer, hire GTM, and complete our first cohort of POs.</div></div>
-        <div class="a"><div class="v">10 POs</div><div class="l">The milestone that turns the pilot into a business and earns the seed round.</div></div>
-        <div class="a"><div class="v">Platform</div><div class="l">From sourcing today to the back-office OS, payments, and financing that compound on every order.</div></div>
+        <div class="a"><div class="v">$500K</div><div class="l">Pre-seed to ship the core OS and complete the first paid cohort.</div></div>
+        <div class="a"><div class="v">10 brands</div><div class="l">Prove conversion, SaaS attach, repeat POs, and CAC.</div></div>
+        <div class="a"><div class="v">One wedge</div><div class="l">Marketplace entry, recurring software, and supplier intelligence on the same order flow.</div></div>
       </div>
-      <div class="round-note"><b>Founder-owned, clean cap table, minimal burn.</b> A disciplined round where a lead check buys meaningful ownership. Valuation to discuss.</div>
+      <div class="round-note"><b>Founder-owned, clean cap table, minimal burn.</b> Valuation to discuss.</div>
       <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Avi Sachdev · avi@stitchgrid.com</span></div>
     </section>
 
