@@ -14,435 +14,48 @@
 window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+  :root{ --paper:#FAF8F5; --ink:#2A2623; --terracotta:#C4613A; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
 
-:root{
-  --paper:#FAF8F5; --stone:#F1ECE3; --bone:#EFE9DF;
-  --ink:#2A2623;               /* warm charcoal — dark slides + dark bars */
-  --near-black:#211F1C;        /* headlines on light */
-  --charcoal:#2D2A27;
-  --muted:#6E665C;
-  --terracotta:#C4613A; --terracotta-tint:#E5936A;
-  --rule:#E4DDD0; --rule-soft:#ECE6DA; --card-border:#E8E1D5;
-  --font-heading:"Playfair Display",Georgia,"Times New Roman",serif;
-  --font-sans:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,sans-serif;
-  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-}
+  /* Full-screen PDF (desktop) */
+  .pdf{position:fixed;inset:0;width:100%;height:100%;border:0;background:var(--ink);z-index:1}
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{background:#0d1322;font-family:var(--font-sans);color:var(--charcoal);
-  -webkit-font-smoothing:antialiased;overflow:hidden;}
+  /* Fallback sits behind the PDF; becomes the view on mobile, where inline PDF rendering is unreliable */
+  .fallback{position:fixed;inset:0;z-index:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:20px;text-align:center;color:var(--paper);padding:28px}
+  .fallback .mark{font-weight:800;font-size:15px;letter-spacing:.02em}
+  .fallback .mark .dot{color:var(--terracotta)}
+  .fallback h1{font-size:22px;font-weight:700;line-height:1.2}
+  .fallback p{color:rgba(250,248,245,.7);font-size:14px;max-width:30em;line-height:1.5}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 20px;border-radius:999px;
+    background:var(--paper);color:var(--ink);text-decoration:none;font-size:13px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase}
 
-.deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-.stage{position:relative;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;
-  background:var(--paper);overflow:hidden;box-shadow:0 40px 120px -30px rgba(0,0,0,.6);}
+  /* Floating download (desktop) */
+  .download{position:fixed;top:16px;right:16px;z-index:3;display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.94);color:var(--ink);text-decoration:none;
+    font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 12px 30px rgba(0,0,0,.25)}
 
-.slide{position:absolute;inset:0;padding:6% 6.5% 6.4%;display:none;flex-direction:column;}
-.slide.active{display:flex;animation:fade .4s ease}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-/* ── Type primitives ── */
-.eyebrow{font-family:var(--font-mono);font-size:.82vw;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--terracotta);margin-bottom:1.5em}
-h1{font-family:var(--font-heading);font-weight:800;letter-spacing:-.02em;line-height:1.05;
-  font-size:5.2vw;color:var(--near-black);text-wrap:balance}
-h2{font-family:var(--font-heading);font-weight:800;letter-spacing:-.015em;line-height:1.08;
-  font-size:3.7vw;color:var(--near-black);text-wrap:balance;margin-bottom:.4em}
-.lede{font-size:1.28vw;line-height:1.5;color:var(--muted);max-width:60em;text-wrap:pretty;font-weight:400}
-.dot{color:var(--terracotta)}
-.em{color:var(--terracotta)}
-
-/* ── Footer chrome ── */
-.foot{position:absolute;left:6.5%;right:6.5%;bottom:4.2%;display:flex;justify-content:space-between;
-  align-items:baseline;font-family:var(--font-mono);font-size:.74vw;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(110,102,92,.55)}
-.foot .wm{font-family:var(--font-heading);font-weight:700;text-transform:none;letter-spacing:-.01em;
-  font-size:1.15vw;color:var(--charcoal)}
-.foot .wm .dot{color:var(--terracotta)}
-
-/* ── Section sub-label (mono, terracotta) ── */
-.slabel{font-family:var(--font-mono);font-size:.8vw;font-weight:600;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--terracotta)}
-.chead{font-family:var(--font-heading);font-weight:700;font-size:2.3vw;letter-spacing:-.01em;
-  line-height:1.08;color:var(--near-black)}
-.cbody{font-size:1.06vw;line-height:1.5;color:var(--muted);text-wrap:pretty}
-
-/* ── Row list (problem) ── */
-.rows{margin-top:2.6vw;display:flex;flex-direction:column}
-.row{display:grid;grid-template-columns:2.6em 15.5vw 1fr;align-items:start;gap:1.4vw;
-  padding:1.7vw 0;border-bottom:1px solid var(--rule-soft)}
-.row:first-child{padding-top:.4vw}
-.row:last-child{border-bottom:none}
-.row .num{font-family:var(--font-mono);font-size:1.02vw;font-weight:600;color:var(--terracotta);padding-top:.35em}
-.row .rh{font-family:var(--font-heading);font-weight:700;font-size:1.72vw;letter-spacing:-.01em;
-  line-height:1.1;color:var(--near-black)}
-.row .rb{font-size:1.06vw;line-height:1.5;color:var(--muted);text-wrap:pretty;max-width:40em}
-
-/* ── Ruled columns (status quo, GTM) ── */
-.ruled{display:grid;grid-template-columns:repeat(3,1fr);gap:3.4vw;margin-top:2.8vw}
-.rcol{border-top:2px solid var(--rule);padding-top:1.15vw;display:flex;flex-direction:column}
-.rcol.hl{border-top-color:var(--terracotta)}
-.rcol .slabel{margin-bottom:1.5vw}
-.rcol .chead{margin-bottom:1.15vw}
-.list{list-style:none;display:flex;flex-direction:column;gap:.5em}
-.list li{font-size:1.06vw;line-height:1.5;color:var(--muted)}
-
-/* ── Plain columns (why now, why brands stay) ── */
-.pcols{display:grid;grid-template-columns:repeat(3,1fr);gap:3.4vw;margin-top:2.6vw}
-.pcol .slabel{margin-bottom:1.5vw}
-.pcol .chead{margin-bottom:1.5vw}
-.pcol.serifbody .sb{font-family:var(--font-heading);font-weight:700;font-size:1.55vw;line-height:1.28;
-  letter-spacing:-.01em;color:var(--near-black);text-wrap:pretty}
-
-/* ── Subtle cards (founder, flow, business model) ── */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vw;margin-top:2.4vw}
-.card{background:rgba(255,255,255,.55);border:1px solid var(--card-border);border-radius:16px;
-  padding:1.7vw 1.6vw;display:flex;flex-direction:column}
-.card .slabel{margin-bottom:1.2vw}
-.card .cbody{font-size:1.02vw}
-.card .divide{height:1px;background:var(--rule-soft);margin:1.3vw 0 1vw}
-.card .flabel{font-family:var(--font-mono);font-size:.72vw;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;color:rgba(110,102,92,.7);margin-bottom:.75em}
-.card .fval{font-weight:700;font-size:1.06vw;line-height:1.4;color:var(--near-black)}
-.card .mval{font-family:var(--font-mono);font-weight:600;font-size:1.65vw;letter-spacing:-.01em;
-  color:var(--near-black);margin-bottom:1vw;line-height:1}
-
-/* flow row of six */
-.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:1vw;margin-top:2.6vw}
-.fcard{background:rgba(255,255,255,.55);border:1px solid var(--card-border);border-radius:13px;
-  padding:1.15vw 1.05vw;min-height:8.2vw;display:flex;flex-direction:column;gap:.85vw}
-.fcard.hl{border-color:var(--terracotta)}
-.fcard .fk{font-family:var(--font-mono);font-size:.72vw;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:rgba(110,102,92,.7)}
-.fcard.hl .fk{color:var(--terracotta)}
-.fcard .ft{font-family:var(--font-heading);font-weight:700;font-size:1.28vw;line-height:1.14;
-  letter-spacing:-.01em;color:var(--near-black)}
-
-/* ── Metrics (traction) ── */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4vw;margin-top:2.6vw}
-.metric .mv{font-family:var(--font-mono);font-weight:600;font-size:2.9vw;letter-spacing:-.02em;
-  color:var(--near-black);line-height:1}
-.metric .ml{font-size:1.02vw;color:var(--muted);margin-top:.9em;line-height:1.45;text-wrap:pretty}
-
-/* ── Revenue price band + calc ── */
-.priceband{border:1px solid var(--card-border);border-radius:16px;background:rgba(255,255,255,.5);
-  padding:1.6vw 1.9vw;margin-top:2.2vw;display:flex;align-items:center;justify-content:space-between;gap:2vw}
-.priceband .pl{display:flex;flex-direction:column;gap:.9vw}
-.priceband .plabel{font-family:var(--font-mono);font-size:.78vw;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--terracotta)}
-.priceband .pval{font-family:var(--font-mono);font-weight:600;font-size:2.15vw;letter-spacing:-.01em;color:var(--near-black)}
-.priceband .pnote{font-size:1.06vw;color:var(--muted);line-height:1.45;max-width:26em;text-align:right}
-.calc{display:grid;grid-template-columns:repeat(5,1fr);margin-top:1.4vw;align-items:end}
-.calc .term{display:flex;flex-direction:column;gap:.7em;text-align:center}
-.calc .term .v{font-family:var(--font-mono);font-size:2.15vw;font-weight:600;color:var(--near-black);
-  line-height:1;letter-spacing:-.02em}
-.calc .term .l{font-family:var(--font-mono);font-size:.68vw;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.calc .term.res .v{color:var(--terracotta)}
-
-/* ── Callout bars ── */
-.callout{border-radius:14px;padding:1.55vw 2vw;margin-top:auto;margin-bottom:2.6vw}
-.callout.light{background:var(--stone)}
-.callout.dark{background:var(--ink)}
-.callout .clbl{font-family:var(--font-mono);font-size:.76vw;font-weight:600;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--terracotta);margin-bottom:.7em;display:block}
-.callout.dark .clbl{color:var(--terracotta-tint)}
-.callout .ctext{font-size:1.28vw;line-height:1.4;font-weight:600;color:var(--near-black);text-wrap:pretty}
-.callout.dark .ctext{color:var(--paper)}
-.callout.center{text-align:center}
-.callout.center .ctext{font-weight:700}
-.callout.mono-c .ctext{font-family:var(--font-mono);font-weight:600;color:var(--terracotta);font-size:1.05vw;letter-spacing:.02em}
-.callout .serif{font-family:var(--font-heading);font-weight:700}
-
-/* ── Centered closer (no box) ── */
-.closer{margin-top:auto;margin-bottom:2.6vw;text-align:center}
-.closer .cserif{font-family:var(--font-heading);font-weight:700;font-size:2.1vw;letter-spacing:-.01em;
-  color:var(--near-black);line-height:1.15;text-wrap:balance}
-.closer .csub{font-size:1.12vw;font-weight:600;color:var(--terracotta);margin-top:.7em;text-wrap:pretty}
-.closer.left{text-align:left}
-
-/* thin full-width rule */
-.hr{height:1px;background:var(--rule);margin:2.4vw 0}
-
-/* stacked paragraphs (how it works) */
-.stack{margin-top:2.2vw;display:flex;flex-direction:column;gap:1.1vw}
-.stack .muted{font-size:1.14vw;line-height:1.5;color:var(--muted);max-width:66em}
-.stack .strong{font-family:var(--font-heading);font-weight:700;font-size:1.45vw;line-height:1.3;
-  letter-spacing:-.01em;color:var(--near-black);text-wrap:pretty;max-width:60em}
-
-/* ── Dark slides ── */
-.slide.dark{background:var(--ink);color:var(--paper)}
-.slide.dark h1,.slide.dark h2{color:var(--paper)}
-.slide.dark .lede{color:rgba(250,248,245,.72)}
-.slide.dark .eyebrow{color:var(--terracotta-tint)}
-.slide.dark .foot{color:rgba(250,248,245,.5)}
-.slide.dark .foot .wm{color:var(--paper)}
-.slide.dark .slabel{color:var(--terracotta-tint)}
-.slide.dark .card{background:rgba(255,255,255,.035);border-color:rgba(255,255,255,.09)}
-.slide.dark .card .mval{color:var(--paper)}
-.slide.dark .card .cbody{color:rgba(250,248,245,.66)}
-.slide.dark .hr{background:rgba(255,255,255,.14)}
-
-.wordmark-big{font-family:var(--font-heading);font-weight:700;letter-spacing:-.02em;
-  font-size:2.5vw;color:var(--paper);margin-bottom:1em}
-.wordmark-big .dot{color:var(--terracotta-tint)}
-.slide.dark .startline{font-family:var(--font-sans);font-size:1.6vw;font-weight:700;
-  color:var(--terracotta-tint);margin-top:1.1vw;text-wrap:pretty;max-width:44em;line-height:1.35}
-
-/* ask */
-.ask{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;margin-top:2.4vw}
-.ask .av{font-family:var(--font-mono);font-size:2.35vw;font-weight:600;color:var(--terracotta-tint);
-  line-height:1;letter-spacing:-.01em}
-.ask .al{font-size:1.06vw;color:rgba(250,248,245,.66);margin-top:.9em;max-width:20em;line-height:1.45}
-.slide.dark .round-note{font-size:1.14vw;font-weight:700;color:var(--paper);line-height:1.5;max-width:52em}
-
-/* biz-model closer */
-.bmcloser{margin-top:auto;margin-bottom:2.6vw;text-align:center}
-.bmcloser .m{font-size:1.06vw;color:rgba(250,248,245,.6);line-height:1.45}
-.bmcloser .s{font-family:var(--font-heading);font-weight:700;font-size:1.7vw;color:var(--terracotta-tint);
-  margin-top:.55em;letter-spacing:-.01em;text-wrap:pretty}
-
-/* ── Controls ── */
-.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;
-  z-index:50;background:rgba(13,19,34,.82);backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.1)}
-.nav button{background:none;border:none;color:rgba(255,255,255,.85);cursor:pointer;font-size:18px;line-height:1;
-  padding:4px 8px;border-radius:8px;font-family:var(--font-sans)}
-.nav button:hover{background:rgba(255,255,255,.12);color:#fff}
-.nav .count{font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.7);min-width:48px;text-align:center}
-.hint{position:fixed;bottom:20px;right:20px;z-index:50;color:rgba(255,255,255,.4);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.download{position:fixed;top:20px;right:20px;z-index:50;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-decoration:none;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 12px 30px rgba(0,0,0,.18)}
-.download:hover{background:#fff}
-
-/* ── Print → PDF ── */
-@media print{
-  @page{size:1280px 720px;margin:0}
-  html,body{background:#fff;overflow:visible;height:auto;width:1280px}
-  .deck{position:static;display:block;height:auto;width:1280px}
-  .stage{position:static;width:1280px;height:auto;max-width:none;max-height:none;box-shadow:none;overflow:visible}
-  .slide{display:flex !important;position:relative;inset:auto;width:1280px;height:720px;overflow:hidden;
-    animation:none;page-break-after:always;break-after:page;}
-  .slide:last-of-type{page-break-after:auto;break-after:auto}
-  .nav,.hint,.download{display:none !important}
-}
+  @media (max-width:820px){
+    .pdf{display:none}
+    .fallback{z-index:2}
+    .download{display:none}
+  }
 </style>
 </head>
 <body>
-<a class="download" href="./StitchGrid-Pre-Seed-Investor-Presentation.pdf" download="StitchGrid — Pre-Seed Deck.pdf" onclick="if(window.va)va('event', { name: 'Download PDF' })">Download PDF</a>
-<div class="deck">
-  <div class="stage">
-
-    <!-- 1 ─ TITLE -->
-    <section class="slide dark active">
-      <div class="eyebrow">Pre-seed · agentic AI for production</div>
-      <div class="wordmark-big">stitchgrid<span class="dot">.</span></div>
-      <h1>The AI production office<br>for brands.</h1>
-      <div class="startline">We start with apparel sourcing, then run the entire order as your outsourced back office.</div>
-      <div class="lede" style="margin-top:2vw">Think of us as your production team, run by an agent. Send a photo, a description, or a sample. We turn it into a tech pack, source vetted factories, run sampling and fitting, and bring back one comparable quote at true landed cost. A signed PO in days, not nine months.</div>
-      <div class="foot"><span>Avi Sachdev · Founder · avi@stitchgrid.com</span><span>New York · 2026</span></div>
-    </section>
-
-    <!-- 2 ─ PROBLEM -->
-    <section class="slide">
-      <div class="eyebrow">The problem</div>
-      <h2>Emerging brands lose months before production<br>even starts.</h2>
-      <div class="rows">
-        <div class="row"><span class="num">01</span><span class="rh">Find the factory</span><span class="rb">A 2,000-unit order can take 6 to 9 months to source, vet, negotiate, and move into production.</span></div>
-        <div class="row"><span class="num">02</span><span class="rh">Decode the quote</span><span class="rb">Brokers hide 10 to 20% inside the quote. Factories price goods while freight, duties, and tariffs arrive later.</span></div>
-        <div class="row"><span class="num">03</span><span class="rh">Run the order</span><span class="rb">Samples, approvals, PO changes, QC, and shipment updates live across email, spreadsheets, and chat.</span></div>
-      </div>
-      <div class="callout light center"><div class="ctext">The market does not need another directory. It needs the production work to get done.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The problem</span></div>
-    </section>
-
-    <!-- 3 ─ STATUS QUO -->
-    <section class="slide">
-      <div class="eyebrow">The status quo</div>
-      <h2>Every option stops at the introduction.</h2>
-      <div class="ruled">
-        <div class="rcol hl"><div class="slabel">01 · Back-channel agents</div><div class="chead">Who you know</div><div class="cbody">Relationship-based middlemen take 10 to 20% with no transparent workflow or durable record.</div></div>
-        <div class="rcol"><div class="slabel">02 · Alibaba</div><div class="chead">A directory</div><div class="cbody">Search results do not run samples, compare landed cost, monitor QC, or follow the order to shipment.</div></div>
-        <div class="rcol"><div class="slabel">03 · Trade shows</div><div class="chead">A moment in time</div><div class="cbody">Flights, booth fees, and a few days to meet suppliers. Then the work moves back to email and hope.</div></div>
-      </div>
-      <div class="closer"><div class="cserif">None of them owns the work after the handshake.</div><div class="csub">The transaction is the wedge. The workflow after it is the company.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>The status quo</span></div>
-    </section>
-
-    <!-- 4 ─ FOUNDER -->
-    <section class="slide">
-      <div class="eyebrow">Founder</div>
-      <h2>I have lived all three sides of this problem.</h2>
-      <div class="cards">
-        <div class="card"><div class="slabel">Born into it</div><div class="cbody">My family runs a garment manufacturing business, the reason we came to America in the 1980s. I grew up in this world and still have relationships that move product into major retailers.</div><div class="divide"></div><div class="flabel">Family business supplies</div><div class="fval">TJ Maxx · Macy's · Nordstrom · Ross · Burlington</div></div>
-        <div class="card"><div class="slabel">Built the software</div><div class="cbody">Five years at Rent the Runway building fashion, logistics, and operations at scale. At Momento Market, I worked inside a two-sided marketplace. StitchGrid needs both.</div><div class="divide"></div><div class="flabel">Career</div><div class="fval">Rent the Runway · Momento Market</div></div>
-        <div class="card"><div class="slabel">Became the customer</div><div class="cbody">I founded Both Tails, my own apparel brand, and lived the sourcing grind firsthand. I took it to market across every major channel and am building the tool I needed.</div><div class="divide"></div><div class="flabel">Both Tails sells through</div><div class="fval">Amazon · Walmart · Chewy · Kohl's · TikTok Shop · Shopify</div></div>
-      </div>
-      <div class="closer"><div class="cserif" style="font-family:var(--font-sans);font-weight:700;font-size:1.3vw">I grew up in this world, built the software, then became the customer. Three sourcing agents already cover five countries.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Founder</span></div>
-    </section>
-
-    <!-- 5 ─ WHY NOW -->
-    <section class="slide">
-      <div class="eyebrow">Why now</div>
-      <h2>AI can finally do the work brokers charge 10 to<br>20% to perform.</h2>
-      <div class="pcols">
-        <div class="pcol"><div class="slabel">01 · Read</div><div class="chead">Turn the brief into a spec</div><div class="cbody">Interpret photos, descriptions, measurements, and prior samples. Produce a factory-ready tech pack.</div></div>
-        <div class="pcol"><div class="slabel">02 · Decide</div><div class="chead">Rank the right factory</div><div class="cbody">Compare capability, MOQ, lead time, certifications, capacity, and past delivery behavior.</div></div>
-        <div class="pcol"><div class="slabel">03 · Run</div><div class="chead">Keep the order moving</div><div class="cbody">Read replies, normalize quotes, chase approvals, flag risk, and update every connected system.</div></div>
-      </div>
-      <div class="callout dark"><span class="clbl">Software leverage</span><div class="ctext">A traditional sourcing office grows by adding coordinators. StitchGrid automates the language-heavy work so GMV can grow faster than headcount.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Why now</span></div>
-    </section>
-
-    <!-- 6 ─ HOW IT WORKS -->
-    <section class="slide">
-      <div class="eyebrow">How it works · live today</div>
-      <h2>A photo in. A signed PO out.</h2>
-      <div class="flow">
-        <div class="fcard"><span class="fk">01 · Input</span><span class="ft">Photo, sketch, or sample</span></div>
-        <div class="fcard hl"><span class="fk">02 · AI</span><span class="ft">Tech pack</span></div>
-        <div class="fcard"><span class="fk">03 · Match</span><span class="ft">Vetted factories</span></div>
-        <div class="fcard hl"><span class="fk">04 · AI</span><span class="ft">Quote at landed cost</span></div>
-        <div class="fcard"><span class="fk">05 · Approve</span><span class="ft">Signed PO</span></div>
-        <div class="fcard"><span class="fk">06 · Deliver</span><span class="ft">Production to shipment</span></div>
-      </div>
-      <div class="stack">
-        <div class="muted">A brand sends us a product idea. StitchGrid writes the tech pack, sources factories we have vetted in person, and returns comparable quotes at true landed cost.</div>
-        <div class="strong">The brand approves the factory and price. The same agent follows the order from signed PO through shipment.</div>
-      </div>
-      <div class="callout light center mono-c"><div class="ctext">AI does the language work. The brand keeps every decision.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>How it works</span></div>
-    </section>
-
-    <!-- 7 ─ REVENUE CEILING -->
-    <section class="slide">
-      <div class="eyebrow">Revenue ceiling</div>
-      <h2>Software creates the floor. Production creates the upside.</h2>
-      <div class="lede" style="margin-top:1.4vw">A brand can bring its own suppliers or ask StitchGrid to source the order.</div>
-      <div class="priceband">
-        <div class="pl"><span class="plabel">Apparel OS</span><span class="pval">$149 to $2,499 / month</span></div>
-        <div class="pnote">For brands running production with their existing supplier network.</div>
-      </div>
-      <div class="slabel" style="margin-top:2vw">Managed sourcing · one illustrative order</div>
-      <div class="calc">
-        <div class="term"><span class="v">5</span><span class="l">Styles</span></div>
-        <div class="term"><span class="v">× 10K</span><span class="l">Units each</span></div>
-        <div class="term"><span class="v">× $10</span><span class="l">Per unit</span></div>
-        <div class="term"><span class="v">= $500K</span><span class="l">Sourced GMV</span></div>
-        <div class="term res"><span class="v">→ $25K</span><span class="l">At a 5% take</span></div>
-      </div>
-      <div class="callout dark center"><div class="ctext serif">5% introductory pilot rate. Standard managed sourcing is expected to price at 7% to 10%.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Revenue ceiling</span></div>
-    </section>
-
-    <!-- 8 ─ BUSINESS MODEL -->
-    <section class="slide dark">
-      <div class="eyebrow">Business model · recurring + transactional</div>
-      <h2>The first order generates revenue.<br>Every order after increases LTV.</h2>
-      <div class="lede" style="margin-top:1.4vw">The subscription can begin before or alongside the first PO. The take rate grows with managed production. The operating record makes StitchGrid harder to replace after every order.</div>
-      <div class="cards">
-        <div class="card"><div class="slabel">01 · Recurring floor</div><div class="mval">$149-$2,499 / mo</div><div class="cbody">Tech packs, approvals, POs, production status, and connected work.</div></div>
-        <div class="card"><div class="slabel">02 · Transaction upside</div><div class="mval">5-10% / order</div><div class="cbody">Revenue scales with the production GMV sourced and managed through StitchGrid.</div></div>
-        <div class="card"><div class="slabel">03 · LTV expansion</div><div class="mval" style="font-size:1.35vw">Catalog, not one SKU</div><div class="cbody">Land one urgent order, then expand across more styles, suppliers, and production cycles.</div></div>
-      </div>
-      <div class="bmcloser"><div class="m">Pricing is informed by founder operating experience and early customer discovery, not contracted revenue.</div><div class="s">This round proves SaaS attach, a second PO, and expansion beyond the pilot SKU.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Business model · LTV</span></div>
-    </section>
-
-    <!-- 9 ─ GO TO MARKET -->
-    <section class="slide">
-      <div class="eyebrow">Go to market</div>
-      <h2>Land one urgent SKU. Expand across the catalog.</h2>
-      <div class="lede" style="margin-top:1.4vw">We start with brands that have production intent now, not a narrow revenue band.</div>
-      <div class="ruled">
-        <div class="rcol"><div class="slabel">01 · Find demand</div><div class="chead">Active POs</div><ul class="list"><li>Founder and family network</li><li>Sourcing agents</li><li>DTC and Shopify partners</li></ul></div>
-        <div class="rcol hl"><div class="slabel">02 · Complete the order</div><div class="chead">Prove trust</div><ul class="list"><li>Vetted factory match</li><li>Comparable landed cost</li><li>One successful SKU</li></ul></div>
-        <div class="rcol"><div class="slabel">03 · Grow GMV</div><div class="chead">Expand both sides</div><ul class="list"><li>More styles per brand</li><li>More repeat production</li><li>More proven factories</li></ul></div>
-      </div>
-      <div class="callout light left"><span class="clbl">The marketplace compounds</span><div class="ctext serif">More brand demand attracts better factories. More proven factories improve outcomes. Better outcomes move more of each catalog onto StitchGrid.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>GTM · GMV flywheel</span></div>
-    </section>
-
-    <!-- 10 ─ TRACTION -->
-    <section class="slide">
-      <div class="eyebrow">Where we are · Phase 0</div>
-      <h2>Early, but the signal is real.</h2>
-      <div class="metrics">
-        <div class="metric"><div class="mv">24-48h</div><div class="ml">Brief to first quote. The old process takes weeks of back-and-forth.</div></div>
-        <div class="metric"><div class="mv">$100K+</div><div class="ml">Estimated value of the proposed pilot production order.</div></div>
-        <div class="metric"><div class="mv">10</div><div class="ml">Factories vetted and onboarded to the network.</div></div>
-        <div class="metric"><div class="mv">3</div><div class="ml">Sourcing agents across five countries.</div></div>
-      </div>
-      <div class="hr"></div>
-      <div class="closer left" style="margin-top:0"><div class="slabel" style="margin-bottom:1.1vw">One SKU · one pilot</div><div class="cserif" style="text-align:left;font-size:1.7vw;text-wrap:pretty">The current pilot scope is one SKU. Early conversations indicate potential to expand across the catalog after the first order delivers.</div><div style="font-size:1.1vw;color:var(--muted);margin-top:1vw;line-height:1.5">Two to three additional brands are in early conversations. These are signals, not paid or contracted commitments.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Traction</span></div>
-    </section>
-
-    <!-- 11 ─ WHY BRANDS STAY -->
-    <section class="slide">
-      <div class="eyebrow">Why brands stay</div>
-      <h2>The marketplace earns the first PO. The OS earns<br>the next ten.</h2>
-      <div class="pcols">
-        <div class="pcol serifbody"><div class="slabel">System of record</div><div class="sb">Tech packs, sampling rounds, normalized quotes, approvals, POs, QC evidence, and delivery status stay together.</div></div>
-        <div class="pcol serifbody"><div class="slabel">Supplier graph</div><div class="sb">Cost, response time, sample accuracy, quality, exceptions, and delivery behavior improve every future match.</div></div>
-        <div class="pcol serifbody"><div class="slabel">Platform retention</div><div class="sb">Freight, storage, payments, and future financing can attach to the same order without fragmenting the workflow.</div></div>
-      </div>
-      <div class="callout dark"><span class="clbl">The compounding loop</span><div class="ctext serif">Brands can contact a factory directly. They stay for the operating record, supplier intelligence, workflow automation, and attached services.</div></div>
-      <div class="foot"><span class="wm">stitchgrid<span class="dot">.</span></span><span>Retention · data moat</span></div>
-    </section>
-
-    <!-- 12 ─ ASK / CLOSE -->
-    <section class="slide dark">
-      <div class="eyebrow">The ask</div>
-      <h1>Back the operating system<br>behind every emerging brand.</h1>
-      <div class="lede" style="margin-top:1.6vw">StitchGrid wins the first PO through the sourcing marketplace, then earns recurring revenue by running production from brief to shipment.</div>
-      <div class="ask">
-        <div class="a"><div class="av">$500K</div><div class="al">Pre-seed to ship the core OS and complete the first paid cohort.</div></div>
-        <div class="a"><div class="av">10 BRANDS</div><div class="al">Prove conversion, SaaS attach, repeat POs, and CAC.</div></div>
-        <div class="a"><div class="av">ONE WEDGE</div><div class="al">Marketplace entry, recurring software, and supplier intelligence on the same order flow.</div></div>
-      </div>
-      <div class="hr" style="margin-top:auto;margin-bottom:1.8vw"></div>
-      <div class="round-note">Founder-owned, clean cap table, minimal burn. Valuation to discuss.</div>
-      <div class="foot"><span>Avi Sachdev · avi@stitchgrid.com</span><span style="color:var(--terracotta-tint)">STITCHGRID.</span></div>
-    </section>
-
+  <div class="fallback">
+    <div class="mark">stitchgrid<span class="dot">.</span></div>
+    <h1>Pre-Seed Investor Deck</h1>
+    <p>Tap below to open the deck.</p>
+    <a class="btn" href="./StitchGrid-Pre-Seed-Investor-Presentation.pdf" download="StitchGrid — Pre-Seed Deck.pdf" onclick="if(window.va)va('event',{name:'Download PDF'})">Open the deck (PDF)</a>
   </div>
-</div>
 
-<div class="nav">
-  <button id="prev" aria-label="Previous">‹</button>
-  <span class="count"><span id="cur">1</span> / <span id="total">12</span></span>
-  <button id="next" aria-label="Next">›</button>
-</div>
-<div class="hint">← → to navigate · F fullscreen · P print to PDF</div>
+  <a class="download" href="./StitchGrid-Pre-Seed-Investor-Presentation.pdf" download="StitchGrid — Pre-Seed Deck.pdf" onclick="if(window.va)va('event',{name:'Download PDF'})">Download PDF</a>
 
-<script>
-const slides=[...document.querySelectorAll('.slide')];
-let i=0;
-const cur=document.getElementById('cur'),total=document.getElementById('total');
-total.textContent=slides.length;
-function show(n){
-  i=Math.max(0,Math.min(slides.length-1,n));
-  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
-  cur.textContent=i+1;
-}
-document.getElementById('next').onclick=(e)=>{e.stopPropagation();show(i+1)};
-document.getElementById('prev').onclick=(e)=>{e.stopPropagation();show(i-1)};
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')show(i+1);
-  if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);
-  if(e.key==='Home')show(0);
-  if(e.key==='End')show(slides.length-1);
-  if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
-  if(e.key.toLowerCase()==='p'){window.print();}
-});
-document.querySelector('.stage').addEventListener('click',e=>{
-  const x=e.clientX/window.innerWidth;
-  if(x>0.5)show(i+1);else show(i-1);
-});
-</script>
+  <iframe class="pdf" src="./StitchGrid-Pre-Seed-Investor-Presentation.pdf#view=FitH" title="StitchGrid Pre-Seed Investor Presentation" loading="eager"></iframe>
 </body>
 </html>
